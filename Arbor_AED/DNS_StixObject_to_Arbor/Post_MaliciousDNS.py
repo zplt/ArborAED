@@ -1,4 +1,4 @@
-import requests,urllib3,random,Get_Collection
+import requests,urllib3,random,GetCollection
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from datetime import datetime
 time=datetime.now()
@@ -29,8 +29,8 @@ class StixObject:
                         "labels": [
                             "bidirectional"
                         ],
-                        "name": "Malicious Ipv4",
-                        "pattern": "[ipv4-addr:value = '{}']".format(i),
+                        "name": "Malicious DNS",
+                        "pattern": "[domain-name:value = '{}']".format(i),
                         "type": "indicator",
                         "valid_from": str(time)
                     }
@@ -40,14 +40,11 @@ class StixObject:
             }
             response = session.post(self.url, headers=headers, json=json, verify=False)
         session.close()
-        print("Ip (IPs) added")
-
-    def DeleteIp(self,values):
-        pass
+        print("Domain Name(s) added")
 
 
     def GetBlackList(self):
-        with open("IpList", "r") as file:
+        with open("DomainNames", "r") as file:
             Lines = file.readlines()
             file.close()
         self.AdBlackList(Lines)
